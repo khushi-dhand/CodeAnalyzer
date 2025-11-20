@@ -7,6 +7,22 @@ public class AuthService {
     private final File userFile = new File("data/users.txt");
     private final Scanner scanner = new Scanner(System.in);
 
+    public AuthService() {
+        // Ensure data directory exists
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();
+        }
+        // Create users.txt if it doesn't exist
+        try {
+            if (!userFile.exists()) {
+                userFile.createNewFile();
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating users file: " + e.getMessage());
+        }
+    }
+
     public void register() {
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
